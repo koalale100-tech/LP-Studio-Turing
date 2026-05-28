@@ -683,6 +683,16 @@ footer a:hover{color:var(--t1)}
 'use strict';
 /* Mode clair uniquement */
 
+/* Si déjà après le 31 mai au chargement de la page */
+(function(){
+  if(new Date() >= new Date('2026-05-31T08:00:00+02:00')){
+    document.addEventListener('DOMContentLoaded', function(){
+      document.dispatchEvent(new Event('launch'));
+    });
+  }
+})();
+
+
 /* PROGRESS + NAV */
 var prog=document.getElementById('prog'),nav=document.getElementById('nav'),raf=false;
 window.addEventListener('scroll',function(){if(!raf){requestAnimationFrame(function(){
@@ -699,26 +709,60 @@ var lastS=-1;
 function tick(){
   var d=tgt-Date.now();
   if(d<=0){
-    // Compteur arrivé à zéro — afficher "C'est disponible !"
+  if(!document.body.classList.contains('launched')){
+    document.body.classList.add('launched');
+
+    // Countdown
     var box=document.querySelector('.cd');
-    if(box&&!box.classList.contains('launched')){
-      box.classList.add('launched');
-      box.innerHTML='<div class="cd-launched">'
-        +'<div class="cd-launched-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E63946" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>'
-        +'<div class="cd-launched-title">C&#39;est disponible !</div>'
-        +'<div class="cd-launched-sub">Le livre blanc Turing Studio est en ligne.</div>'
-        +'<a class="cd-launched-btn" href="https://turing-studio.vercel.app/" target="_blank" rel="noopener noreferrer">Accéder maintenant →</a>'
-        +'</div>';
-      // Mettre à jour le CTA principal aussi
-      var ctaSub=document.querySelector('.cta-sub');
-      if(ctaSub)ctaSub.textContent="Le livre blanc est disponible. Accédez à l’application gratuitement.";
-      var ctaNote=document.querySelector('.cta-note');
-      if(ctaNote)ctaNote.textContent='100% gratuit · Accès immédiat';
-      var ctaBtn=document.querySelector('#cf .bp-full');
-      if(ctaBtn)ctaBtn.textContent='Accéder maintenant →';
-    }
-    return;
+    if(box){box.innerHTML='<div class="cd-launched"><div class="cd-launched-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E63946" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cd-launched-title">C&#39;est disponible !</div><div class="cd-launched-sub">Le livre blanc Turing Studio est en ligne.</div><a class="cd-launched-btn" href="https://turing-studio.vercel.app/" target="_blank" rel="noopener noreferrer">Accéder maintenant →</a></div>';}
+
+    // Eyebrow
+    var ey=document.querySelector('.ey');
+    if(ey)ey.innerHTML='<span class="ey-dot"></span>Disponible maintenant';
+
+    // Hero title
+    var h1=document.querySelector('h1');
+    if(h1)h1.innerHTML='Accédez<br>au livre blanc.<br><em>Gratuitement.</em>';
+
+    // Hero subtitle
+    var hs=document.querySelector('.hs');
+    if(hs)hs.innerHTML='Le livre blanc interactif Turing Studio est en ligne. 32 outils, 7 chapitres, méthode hybride YouTube. <strong>Accès gratuit et immédiat.</strong>';
+
+    // Nav button
+    var navCta=document.querySelector('.nav-cta');
+    if(navCta)navCta.textContent='Accéder gratuitement';
+
+    // CTA title
+    var ctaT=document.querySelector('.cta-t');
+    if(ctaT)ctaT.innerHTML='C&#39;est disponible.<br><em>Accès gratuit.</em>';
+
+    // CTA subtitle
+    var ctaSub=document.querySelector('.cta-sub');
+    if(ctaSub)ctaSub.textContent='Entrez votre email et accédez immédiatement au livre blanc interactif.';
+
+    // CTA note
+    var ctaNote=document.querySelector('.cta-note');
+    if(ctaNote)ctaNote.textContent='100% gratuit · Accès immédiat';
+
+    // Buttons
+    var heroBtn=document.querySelector('#hf .bp-full');
+    if(heroBtn)heroBtn.textContent='Accéder maintenant →';
+    var ctaBtn=document.querySelector('#cf .bp-full');
+    if(ctaBtn)ctaBtn.textContent='Accéder maintenant →';
+
+    // Success messages
+    var ho=document.getElementById('ho');
+    if(ho)ho.textContent='Accès envoyé ! Vérifiez votre boite mail.';
+    var co=document.getElementById('co');
+    if(co)co.textContent='Accès envoyé ! Vérifiez votre boite mail.';
+
+    // Labels "Accès anticipé"
+    document.querySelectorAll('.stag').forEach(function(el){
+      if(el.textContent.indexOf('anticipé')>-1)el.textContent='Accès gratuit · Immédiat';
+    });
   }
+  return;
+}
   var days=Math.floor(d/864e5),hrs=Math.floor((d%864e5)/36e5),min=Math.floor((d%36e5)/6e4),sec=Math.floor((d%6e4)/1e3);
   document.getElementById('cj').textContent=p2(days);
   document.getElementById('ch').textContent=p2(hrs);
