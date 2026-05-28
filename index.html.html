@@ -820,9 +820,11 @@ window.sub=function(nId,eId,fId,oId){
     nameInp.classList.add('err');nameInp.focus();
     setTimeout(function(){nameInp.classList.remove('err');},1800);return;
   }
-  // Validation email
-  if(!email||!email.includes('@')||!email.includes('.')){
+  // Validation email stricte — regex RFC 5322 simplifiée
+  var emailRegex=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+  if(!email||!emailRegex.test(email)){
     emailInp.classList.add('err');emailInp.focus();
+    emailInp.setAttribute('title','Adresse email invalide');
     setTimeout(function(){emailInp.classList.remove('err');},1800);return;
   }
 
