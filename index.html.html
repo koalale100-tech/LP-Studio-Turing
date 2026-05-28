@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Comment optimiser sa production de vidéo YouTube sans sacrifier son authenticité ? Turing Studio — méthode hybride IA, 32 outils, 7 chapitres. Disponible le 31 mai 2026.">
+<title>Turing Studio · Méthode IA pour créateurs YouTube</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ─────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+p,h1,h2,h3{overflow-wrap:break-word;word-break:break-word}
+
+/* ── TOKENS ────────────────────────────────────────────────────────── */
+:root{
+  --red:#E63946;--warm:#C9A961;--green:#7EB89A;--blue:#5B9BD5;
+  --bg:#F5F1E8;--s1:#EEE9DC;--s2:#E4DFD0;--s3:#DAD4C4;
+  --app-bg:#FFFFFF;--app-s:#F5F1E8;
+  --t1:#1B1B23;--t2:#6B6B78;--t3:#A4A39B;
+  --bd:rgba(0,0,0,.08);--bd2:rgba(0,0,0,.13);
+  --wt:#9A7135;--sh:rgba(0,0,0,.1);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Instrument Sans',system-ui,sans-serif;
+  --r:4px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+/* ── BASE ──────────────────────────────────────────────────────────── */
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── SCROLL PROGRESS ───────────────────────────────────────────────── */
+#prog{position:fixed;top:0;left:0;height:2px;background:var(--red);z-index:9999;width:0;transition:width .05s linear}
+
+/* ── NAV ───────────────────────────────────────────────────────────── */
+nav{position:fixed;top:2px;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:15px 48px;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+nav.s{background:rgba(245,241,232,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:var(--bd)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-tt{display:flex;align-items:baseline;gap:5px}
+.logo-T{font-family:var(--serif);font-size:19px;font-weight:400;letter-spacing:-.3px;color:var(--t1)}
+.logo-S{font-family:var(--serif);font-size:12.5px;font-weight:400;color:var(--t2)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.nav-cta{padding:8px 18px;border:1px solid var(--bd2);border-radius:var(--r);font-size:13px;font-weight:500;color:var(--t1);background:transparent;cursor:pointer;font-family:var(--sans);transition:background .2s}
+.nav-cta:hover{background:var(--s1)}
+
+/* ── HERO ──────────────────────────────────────────────────────────── */
+.hero{min-height:100dvh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 8% 55%,rgba(230,57,70,.05) 0%,transparent 58%);pointer-events:none}
+#hero-canvas{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.32}
+.hero-l{padding:130px 48px 80px 80px;display:flex;flex-direction:column;align-items:flex-start;position:relative;z-index:1}
+.hero-r{padding:130px 64px 80px 32px;display:flex;flex-direction:column;gap:16px;position:relative;z-index:1;opacity:0;animation:fi .9s cubic-bezier(.16,1,.3,1) .35s forwards}
+.ey{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid rgba(230,57,70,.22);border-radius:2px;padding:5px 11px;margin-bottom:30px;opacity:0;animation:fu .6s cubic-bezier(.16,1,.3,1) .1s forwards}
+.ey-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4vw,58px);line-height:1.07;letter-spacing:-.03em;margin-bottom:20px;opacity:0;animation:fu .7s cubic-bezier(.16,1,.3,1) .2s forwards}
+h1 em{font-style:italic;color:var(--wt)}
+.hs{font-size:clamp(14px,1.3vw,16px);color:var(--t2);line-height:1.75;max-width:min(50ch,100%);margin-bottom:38px;font-weight:300;opacity:0;animation:fu .7s cubic-bezier(.16,1,.3,1) .3s forwards}
+.hs strong{color:var(--t1);font-weight:400}
+.fw{width:100%;max-width:420px;opacity:0;animation:fu .7s cubic-bezier(.16,1,.3,1) .4s forwards}
+.form-col{display:flex;flex-direction:column;gap:8px;width:100%}
+.frow{display:flex;gap:8px}
+.fi{flex:1;min-width:0;background:var(--app-bg);border:1px solid var(--bd2);border-radius:var(--r);padding:12px 15px;font-family:var(--sans);font-size:14px;color:var(--t1);outline:none;transition:border-color .2s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.fi::placeholder{color:var(--t3)}
+.fi:focus{border-color:rgba(230,57,70,.4)}
+.fi.err{border-color:rgba(230,57,70,.6)}
+.bp{background:var(--red);color:#fff;border:none;border-radius:var(--r);padding:12px 20px;font-family:var(--sans);font-size:13.5px;font-weight:500;cursor:pointer;transition:background .2s,transform .12s;box-shadow:0 2px 8px rgba(230,57,70,.3)}
+.bp:hover{background:#cc2f3b}
+.bp:active{transform:scale(.98)}
+.bp-full{width:100%}
+.fn{font-size:11px;color:var(--t3);margin-top:9px}
+.fok{display:none;color:var(--green);font-size:13.5px;padding:10px 0}
+
+/* ── COUNTDOWN ─────────────────────────────────────────────────────── */
+.cd{background:var(--app-bg);border:1px solid var(--bd);border-radius:8px;padding:22px 28px;text-align:center;box-shadow:0 2px 12px var(--sh)}
+.cd-lbl{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+.cd-g{display:grid;grid-template-columns:repeat(4,1fr)}
+.cd-u{display:flex;flex-direction:column;align-items:center;position:relative}
+.cd-u:not(:last-child)::after{content:':';position:absolute;right:-1px;top:4px;font-family:var(--serif);font-size:26px;font-weight:300;color:var(--t3);line-height:1}
+.cd-n{font-family:var(--serif);font-size:38px;font-weight:300;color:var(--t1);letter-spacing:-.04em;line-height:1;transition:transform .18s,opacity .18s}
+.cd-n.f{opacity:.25;transform:translateY(-3px)}
+.cd-l{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-top:4px}
+.cd-d{font-size:11.5px;color:var(--red);letter-spacing:.02em;margin-top:12px;font-family:var(--serif);font-style:italic}
+.cd-launched{padding:8px 0;text-align:center}
+.cd-launched-icon{width:48px;height:48px;border-radius:50%;border:2px solid var(--red);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.cd-launched-title{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--t1);margin-bottom:6px}
+.cd-launched-sub{font-size:12.5px;color:var(--t2);margin-bottom:18px;line-height:1.5}
+.cd-launched-btn{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:10px 22px;border-radius:var(--r);font-size:13px;font-weight:500;font-family:var(--sans)}
+
+/* ── APP MOCKUP ────────────────────────────────────────────────────── */
+.am{background:var(--app-bg);border:1px solid var(--bd);border-radius:8px;overflow:hidden;box-shadow:0 8px 32px var(--sh)}
+.am-topbar{background:var(--app-s);border-bottom:1px solid var(--bd);padding:9px 14px;display:flex;align-items:center;gap:8px}
+.am-dots{display:flex;gap:5px}
+.am-dot{width:8px;height:8px;border-radius:50%;background:var(--bd2)}
+.am-dot.r{background:rgba(230,57,70,.55)}
+.am-logo-sm{display:flex;align-items:center;gap:6px;margin-left:6px}
+.am-body{display:grid;grid-template-columns:160px 1fr;min-height:260px}
+.am-side{border-right:1px solid var(--bd);background:var(--app-s);display:flex;flex-direction:column;justify-content:space-between}
+.am-nav-top{padding:6px 0}
+.am-nav-label{padding:4px 14px 2px;font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);opacity:.6}
+.am-nav-item{padding:7px 14px;font-size:10px;color:var(--t2);cursor:pointer;border-radius:6px;margin:1px 6px;display:flex;align-items:center;gap:7px}
+.am-nav-item svg{width:11px;height:11px;flex-shrink:0;opacity:.7}
+.am-nav-item.active{background:rgba(230,57,70,.1);color:var(--red);font-weight:500}
+.am-nav-item.active svg{opacity:1}
+.am-nav-bottom{padding:8px 6px;border-top:1px solid var(--bd)}
+.am-main{padding:16px;background:var(--app-bg)}
+.am-greeting{font-family:var(--serif);font-size:15px;font-weight:300;color:var(--t1);margin-bottom:4px}
+.am-sub{font-size:9px;color:var(--t2);margin-bottom:14px}
+.am-cards{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.am-card{background:var(--app-s);border:1px solid var(--bd);border-radius:6px;padding:10px;cursor:pointer;display:flex;flex-direction:column;gap:5px}
+.am-card-header{display:flex;align-items:center;gap:6px}
+.am-card-icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.am-card-icon svg{width:11px;height:11px}
+.am-card-title{font-size:10px;font-weight:500;color:var(--t1)}
+.am-card-sub{font-size:8.5px;color:var(--t2);line-height:1.4}
+.am-card-badge{display:inline-flex;font-size:7.5px;background:rgba(230,57,70,.1);color:var(--red);border-radius:3px;padding:2px 5px}
+.am-card-wide{grid-column:span 2}
+
+/* ── STATS ─────────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.st{padding:32px 16px;text-align:center;border-right:1px solid var(--bd);display:flex;flex-direction:column;align-items:center;gap:7px}
+.st:last-child{border-right:none}
+.st-n{font-family:var(--serif);font-size:46px;font-weight:300;line-height:1;letter-spacing:-.04em;color:var(--t1)}
+.st-n.cr{color:var(--red);font-style:italic}
+.st-n.cw{color:var(--wt);font-style:italic}
+.st-n.cg{color:var(--green);font-style:italic}
+.st-l{font-size:11.5px;color:var(--t2);line-height:1.5}
+
+/* ── LAYOUT ────────────────────────────────────────────────────────── */
+.sec{padding:88px 80px;max-width:1100px;margin:0 auto}
+.stag{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--t3)}
+.sh2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-.025em;max-width:580px}
+.sh2 em{font-style:italic;color:var(--wt)}
+.sh2 .rt{font-style:italic;color:var(--red)}
+.sep{border:none;border-top:1px solid var(--bd);margin:0}
+.spacer{height:20px}
+
+/* ── PROBLEM ───────────────────────────────────────────────────────── */
+.prob-q{font-family:var(--serif);font-size:clamp(18px,2vw,26px);font-style:italic;font-weight:300;color:var(--red);line-height:1.3;letter-spacing:-.02em;margin-bottom:14px}
+.prob-body{font-size:15px;color:var(--t2);line-height:1.78;max-width:56ch;font-weight:300}
+.prob-body strong{color:var(--t1);font-weight:400}
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);border-radius:var(--r);overflow:hidden;margin-top:48px}
+.pc{background:var(--app-bg);padding:36px;transition:background .22s}
+.pc:hover{background:var(--s1)}
+.pc-n{font-family:var(--serif);font-style:italic;font-size:11px;color:var(--t3);margin-bottom:14px}
+.pc h3{font-family:var(--serif);font-size:18px;font-weight:400;margin-bottom:10px;letter-spacing:-.01em;line-height:1.2}
+.pc p{font-size:13.5px;color:var(--t2);line-height:1.75}
+
+/* ── BANNIÈRE CITATION ─────────────────────────────────────────────── */
+.quote-banner{width:100%;padding:80px 80px;background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:center}
+.qb-content{display:flex;flex-direction:column;align-items:center;gap:28px;max-width:820px;width:100%;text-align:center}
+.qb-line{width:40px;height:2px;background:var(--red);border-radius:2px}
+.qb-text{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(26px,3.6vw,52px);color:var(--t1);line-height:1.2;letter-spacing:-.025em}
+
+/* ── SOLUTION ──────────────────────────────────────────────────────── */
+.in-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);border-radius:var(--r);overflow:hidden}
+.ic{background:var(--app-bg);padding:36px;transition:background .22s;position:relative;overflow:hidden}
+.ic:hover{background:var(--s1)}
+.ic::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .38s cubic-bezier(.16,1,.3,1)}
+.ic:hover::before{transform:scaleX(1)}
+.ic.r1::before{background:var(--red)}
+.ic.r2::before{background:var(--wt)}
+.ic.r3::before{background:var(--blue)}
+.ic.r4::before{background:var(--green)}
+.ic-n{font-family:var(--serif);font-style:italic;font-size:11px;color:var(--t3);margin-bottom:14px}
+.ic h3{font-family:var(--serif);font-size:21px;font-weight:400;margin-bottom:10px;letter-spacing:-.015em;color:var(--t1)}
+.ic p{font-size:13.5px;color:var(--t2);line-height:1.75;margin-bottom:16px}
+
+/* ── ABOUT ─────────────────────────────────────────────────────────── */
+.ab-g{display:grid;grid-template-columns:1fr 1.5fr;gap:72px;align-items:start}
+.ab-name{font-family:var(--serif);font-size:clamp(26px,2.6vw,36px);font-weight:300;letter-spacing:-.025em;margin-bottom:5px}
+.ab-role{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:24px}
+.ab-stats{display:flex;flex-direction:column;gap:1px;background:var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:24px}
+.as{background:var(--app-bg);padding:13px 18px;display:flex;justify-content:space-between;align-items:center;transition:background .22s}
+.as:hover{background:var(--s1)}
+.as-l{font-size:12px;color:var(--t2)}
+.as-v{font-family:var(--serif);font-size:15px;color:var(--t1)}
+.ab-lk{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--t2);text-decoration:none;border:1px solid var(--bd2);border-radius:var(--r);padding:8px 14px;transition:background .2s,color .2s}
+.ab-lk:hover{background:var(--s1);color:var(--t1)}
+.ab-ctx{font-size:14.5px;color:var(--t2);line-height:1.8;font-weight:300}
+.ab-ctx strong{color:var(--t1);font-weight:400}
+.ab-ctx p+p{margin-top:16px}
+
+/* ── FAQ ───────────────────────────────────────────────────────────── */
+.faq-list{display:flex;flex-direction:column;gap:1px;background:var(--bd);border-radius:var(--r);overflow:hidden}
+.fq{background:var(--app-bg);overflow:hidden;transition:background .22s}
+.fq:hover{background:var(--s1)}
+.fq-q{padding:19px 22px;font-size:14.5px;font-weight:500;color:var(--t1);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none}
+.fq-q svg{flex-shrink:0;color:var(--t3);transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.fq.open .fq-q svg{transform:rotate(45deg);color:var(--red)}
+.fq-a{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.16,1,.3,1)}
+.fq.open .fq-a{max-height:200px}
+.fq-a-in{padding:0 22px 18px;font-size:13.5px;color:var(--t2);line-height:1.75}
+
+/* ── CTA ───────────────────────────────────────────────────────────── */
+.cta{text-align:center;padding:88px 40px 108px;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 50% 100%,rgba(230,57,70,.06) 0%,transparent 65%);pointer-events:none}
+.cta-t{font-family:var(--serif);font-size:clamp(28px,4.2vw,54px);font-weight:300;line-height:1.05;letter-spacing:-.03em;max-width:660px;margin:0 auto 14px}
+.cta-t em{font-style:italic;color:var(--wt)}
+.cta-sub{font-size:15px;color:var(--t2);max-width:44ch;margin:0 auto 36px;font-weight:300}
+.cta-col{display:flex;flex-direction:column;gap:8px;width:100%;max-width:420px;margin:0 auto}
+.cta-form{display:flex;gap:8px;width:100%}
+.cta-note{font-size:11px;color:var(--t3);margin-top:11px}
+.cta-ok{display:none;color:var(--green);font-size:14px;padding:10px 0;max-width:420px;margin:0 auto}
+
+/* ── RGPD ──────────────────────────────────────────────────────────── */
+.rgpd{background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:28px 80px}
+.rgpd-in{max-width:1100px;margin:0 auto;display:flex;gap:16px;align-items:flex-start}
+.rgpd-ic{width:30px;height:30px;border:1px solid var(--bd2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;color:var(--t2)}
+.rgpd-tx{font-size:12.5px;color:var(--t2);line-height:1.7}
+.rgpd-tx strong{color:var(--t1);font-weight:500}
+.rgpd-tx a{color:var(--t1);text-underline-offset:2px}
+
+/* ── FOOTER ────────────────────────────────────────────────────────── */
+footer{border-top:1px solid var(--bd);padding:30px 80px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto}
+.ft-r{font-size:12px;color:var(--t3)}
+footer a{color:var(--t2);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--t1)}
+
+/* ── REVEAL (scroll animations) ─────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+.rv.d1{transition-delay:.1s}
+.rv.d2{transition-delay:.2s}
+.rv.d3{transition-delay:.3s}
+.rv.d4{transition-delay:.4s}
+.rv.on{opacity:1;transform:none}
+
+/* ── ANIMATIONS ────────────────────────────────────────────────────── */
+@keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+
+/* ── REDUCED MOTION ────────────────────────────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+}
+
+/* ── RESPONSIVE 1060px ─────────────────────────────────────────────── */
+@media(max-width:1060px){
+  nav{padding:14px 28px}
+  .hero{grid-template-columns:1fr}
+  .hero-l{padding:110px 28px 52px;max-width:640px;margin:0 auto;width:100%}
+  .hero-r{display:none}
+  .sec{padding:64px 28px}
+  .rgpd{padding:24px 28px}
+  footer{padding:26px 28px;max-width:none}
+  .ab-g{grid-template-columns:1fr;gap:36px}
+  .quote-banner{padding:64px 40px}
+}
+
+/* ── RESPONSIVE 680px ──────────────────────────────────────────────── */
+@media(max-width:680px){
+  nav{padding:14px 20px}
+  .nav-cta{display:none}
+  .hero-l{padding:100px 20px 48px}
+  h1{font-size:34px}
+  .frow{flex-direction:column}
+  .cta-form{flex-direction:column}
+  .stats{grid-template-columns:1fr 1fr}
+  .st{border-right:none;border-bottom:1px solid var(--bd)}
+  .st:nth-child(odd){border-right:1px solid var(--bd)}
+  .st:nth-last-child(-n+2){border-bottom:none}
+  .sec{padding:52px 20px}
+  .prob-grid,.in-grid{grid-template-columns:1fr}
+  .rgpd{padding:20px}
+  .cta{padding:52px 20px 72px}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:26px 20px}
+  .ft-r{flex-wrap:wrap;justify-content:center}
+  .quote-banner{padding:52px 24px}
+  .qb-text{font-size:clamp(22px,6vw,32px)}
+}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="#">
+    <svg width="30" height="22" viewBox="0 0 30 22" fill="none" aria-hidden="true">
+      <g opacity="0.28"><polygon points="11,3 11,19 25,11" fill="#E63946" stroke="#E63946" stroke-width="3.5" stroke-linejoin="round"/></g>
+      <polygon points="1,3 1,19 15,11" fill="#E63946" stroke="#E63946" stroke-width="3.5" stroke-linejoin="round"/>
+    </svg>
+    <div class="logo-tt"><span class="logo-T">Turing</span><span class="logo-S">Studio</span></div>
+  </a>
+  <div class="nav-r">
+
+    <button class="nav-cta" onclick="goTo('cta')">Recevoir l'accès</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-l">
+    <div class="ey"><span class="ey-dot"></span>Lancement le 31 mai 2026</div>
+    <h1>Produisez plus<br>sur YouTube.<br><em>Restez authentique.</em></h1>
+    <p class="hs">La question que tout créateur IA se pose : <strong>comment optimiser sa production vidéo sans sacrifier son authenticité ?</strong> Turing Studio est la réponse structurée à cette question.</p>
+    <div class="fw">
+      <div class="form-col" id="hf">
+        <div class="frow">
+          <input class="fi" type="text" id="hn" placeholder="Votre prénom" aria-label="Prénom" autocomplete="given-name"/>
+          <input class="fi" type="email" id="he" placeholder="votre@email.com" aria-label="Email" autocomplete="email"/>
+        </div>
+        <button class="bp bp-full" onclick="sub('hn','he','hf','ho')">Accès gratuit</button>
+      </div>
+      <div class="fok" id="ho"></div>
+      <p class="fn">Gratuit · Sans engagement</p>
+    </div>
+  </div>
+  <div class="hero-r" aria-hidden="true">
+    <!-- COUNTDOWN -->
+    <div class="cd">
+      <div class="cd-lbl">Disponible dans</div>
+      <div class="cd-g">
+        <div class="cd-u"><div class="cd-n" id="cj">--</div><div class="cd-l">Jours</div></div>
+        <div class="cd-u"><div class="cd-n" id="ch">--</div><div class="cd-l">Heures</div></div>
+        <div class="cd-u"><div class="cd-n" id="cm">--</div><div class="cd-l">Min</div></div>
+        <div class="cd-u"><div class="cd-n" id="cs">--</div><div class="cd-l">Sec</div></div>
+      </div>
+      <div class="cd-d">31 mai 2026 · Accès gratuit</div>
+    </div>
+
+    <!-- APP HOME MOCKUP — copie de la vraie home de l'app -->
+    <div class="app-mock">
+      <div class="am-topbar">
+        <div class="am-dots"><span class="am-dot r"></span><span class="am-dot"></span><span class="am-dot"></span></div>
+        <div class="am-logo-sm">
+          <svg width="20" height="15" viewBox="0 0 30 22" fill="none">
+            <g opacity="0.28"><polygon points="11,3 11,19 25,11" fill="#E63946" stroke="#E63946" stroke-width="3.5" stroke-linejoin="round"/></g>
+            <polygon points="1,3 1,19 15,11" fill="#E63946" stroke="#E63946" stroke-width="3.5" stroke-linejoin="round"/>
+          </svg>
+          <span style="font-family:var(--serif);font-size:11px;color:var(--t2);margin-left:4px">Turing Studio</span>
+        </div>
+      </div>
+      <div class="am-body">
+        <!-- Sidebar app -->
+        <div class="am-side">
+          <div class="am-nav-top">
+            <div class="am-nav-item active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Accueil
+            </div>
+            <div class="am-nav-label">Navigation</div>
+            <div class="am-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+              Chapitres
+            </div>
+            <div class="am-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+              Sources
+            </div>
+            <div class="am-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Boîte à outils
+            </div>
+            <div class="am-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Calculateur ROI
+            </div>
+            <div class="am-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Brand Voice Doc.
+            </div>
+          </div>
+          <div class="am-nav-bottom">
+            <div class="am-nav-item" style="font-size:9.5px;color:var(--t3)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Guide
+            </div>
+          </div>
+        </div>
+        <!-- Main content -->
+        <div class="am-main">
+          <div class="am-greeting">Bienvenue sur Turing Studio</div>
+          <div class="am-sub">Méthode hybride IA pour créateurs YouTube</div>
+          <div class="am-cards">
+            <!-- Card 1: Chapitres -->
+            <div class="am-card">
+              <div class="am-card-header">
+                <div class="am-card-icon" style="background:rgba(230,57,70,.12)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#E63946" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#E63946" stroke="none"/></svg>
+                </div>
+                <span class="am-card-title">Chapitres</span>
+              </div>
+              <div class="am-card-sub">7 chapitres, introduction à conclusion</div>
+              <div class="am-card-badge">0/7 lus</div>
+            </div>
+            <!-- Card 2: Boîte à outils -->
+            <div class="am-card">
+              <div class="am-card-header">
+                <div class="am-card-icon" style="background:rgba(201,169,97,.12)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#9A7135" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <span class="am-card-title">Boîte à outils</span>
+              </div>
+              <div class="am-card-sub">32 outils en 6 phases de production</div>
+            </div>
+            <!-- Card 3: Sources -->
+            <div class="am-card">
+              <div class="am-card-header">
+                <div class="am-card-icon" style="background:rgba(127,119,221,.12)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#7F77DD" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <span class="am-card-title">Sources</span>
+              </div>
+              <div class="am-card-sub">54 références classées et filtrables</div>
+            </div>
+            <!-- Card 4: ROI -->
+            <div class="am-card">
+              <div class="am-card-header">
+                <div class="am-card-icon" style="background:rgba(126,184,154,.12)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#7EB89A" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <span class="am-card-title">Calculateur ROI</span>
+              </div>
+              <div class="am-card-sub">Estimez la valeur libérée par votre stack IA</div>
+            </div>
+            <!-- Card 5: BVD (full width) -->
+            <div class="am-card am-card-wide">
+              <div class="am-card-header">
+                <div class="am-card-icon" style="background:rgba(230,57,70,.12)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#E63946" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <span class="am-card-title">Brand Voice Document</span>
+              </div>
+              <div class="am-card-sub">Construisez et exportez votre BVD en 7 étapes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="st rv"><div class="st-n cr" data-to="32">0</div><div class="st-l">Outils IA<br>par phase de création</div></div>
+  <div class="st rv d1"><div class="st-n cw" data-to="7">0</div><div class="st-l">Chapitres<br>actionnables</div></div>
+  <div class="st rv d2"><div class="st-n" data-to="5">0</div><div class="st-l">Étapes de la<br>méthode hybride</div></div>
+  <div class="st rv d3"><div class="st-n cg" data-to="1">0</div><div class="st-l">Brand Voice Document<br>builder intégré</div></div>
+</div>
+
+<hr class="sep">
+
+<!-- PROBLEM -->
+<section class="sec">
+  <p class="stag rv">La problématique</p>
+  <div class="spacer"></div>
+  <p class="prob-q rv d1">"Comment optimiser sa production de vidéo YouTube sans sacrifier son authenticité ?"</p>
+  <p class="prob-body rv d2">Chaque créateur qui intègre l'IA finit par se poser cette question. Parce que <strong>produire plus avec l'IA ne suffit pas</strong> si votre contenu commence à ressembler à celui de tout le monde.</p>
+  <div class="prob-grid">
+    <div class="pc rv"><div class="pc-n">01</div><h3>Vous produisez plus. Mais vous vous reconnaissez moins.</h3><p>Les LLM sans cadre éditorial génèrent du contenu lisse et générique. Votre audience le perçoit avant que vous ne l'admettiez. Le taux d'engagement baisse. La fidélité s'érode.</p></div>
+    <div class="pc rv d1"><div class="pc-n">02</div><h3>L'IA accélère. Mais rarement là où vous en avez besoin.</h3><p>Vous utilisez des outils depuis des mois et le temps de production n'a pas réellement diminué. Le goulot s'est déplacé : de la rédaction vers la curation, du montage vers la validation.</p></div>
+    <div class="pc rv d2"><div class="pc-n">03</div><h3>L'algorithme récompense le volume. Votre audience, l'authenticité.</h3><p>Ces deux injonctions sont contradictoires sans méthode. Publier plus pour plaire à YouTube ou publier mieux pour fidéliser : sans système hybride, vous ne pouvez pas faire les deux.</p></div>
+    <div class="pc rv d3"><div class="pc-n">04</div><h3>Vous avez des outils. Pas un pipeline.</h3><p>ChatGPT, Runway ML, ElevenLabs, Opus Clip. Chaque outil testé en silo, sans logique d'ensemble. Stack coûteuse, workflow fragmenté, aucune reproductibilité sur la durée.</p></div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- BANNIÈRE CITATION -->
+<div class="quote-banner rv">
+  <div class="qb-content">
+    <div class="qb-line"></div>
+    <blockquote class="qb-text">La perception sert<br>la qualité de production.</blockquote>
+    <div class="qb-line"></div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- SOLUTION -->
+<section class="sec">
+  <p class="stag rv">Ce que vous obtenez</p>
+  <div class="spacer"></div>
+  <h2 class="sh2 rv d1" style="margin-bottom:48px">Un système complet,<br>de l'idée à la publication.</h2>
+  <div class="in-grid">
+    <div class="ic r1 rv"><div class="ic-n">01 · Chapitres</div><h3>7 chapitres actionnables</h3><p>Chaque chapitre couvre une phase du pipeline réel d'un créateur YouTube. Des décisions concrètes, applicables dès cette semaine.</p></div>
+    <div class="ic r2 rv d1"><div class="ic-n">02 · Stack IA</div><h3>32 outils évalués par phase</h3><p>Une sélection raisonnée, organisée par moment d'usage. Vous savez quel outil utiliser, quand, et pourquoi, sans perdre de temps en tests infructueux.</p></div>
+    <div class="ic r3 rv d2"><div class="ic-n">03 · Méthode</div><h3>Pipeline hybride en 5 étapes</h3><p>La méthode Turing Studio distingue ce que l'IA fait mieux que vous de ce que vous faites mieux qu'elle. Chaque étape à sa place, dans le bon ordre.</p></div>
+    <div class="ic r4 rv d3"><div class="ic-n">04 · Brand Voice Document</div><h3>Votre identité encodée pour l'IA</h3><p>Le BVD builder génère votre document de voix de marque exportable. Collez-le dans n'importe quel LLM : votre contenu reste instantanément reconnaissable.</p></div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ABOUT -->
+<section class="sec">
+  <p class="stag rv">L'auteur</p>
+  <div class="spacer" style="height:24px"></div>
+  <div class="ab-g">
+    <div class="rv d1">
+      <div class="ab-name">Bruno VINET</div>
+      <div class="ab-role">Fondateur · Turing Studio</div>
+      <div class="ab-stats">
+        <div class="as"><span class="as-l">Livre blanc</span><span class="as-v">Turing Studio 2026</span></div>
+        <div class="as"><span class="as-l">Outils référencés</span><span class="as-v">32 outils IA</span></div>
+        <div class="as"><span class="as-l">Chapitres</span><span class="as-v">7 chapitres</span></div>
+        <div class="as"><span class="as-l">Lancement</span><span class="as-v">31 mai 2026</span></div>
+      </div>
+      <a class="ab-lk" href="https://www.linkedin.com/in/bruno-vinet/" target="_blank" rel="noopener noreferrer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><circle cx="8" cy="8" r="2"/><line x1="8" y1="11" x2="8" y2="21"/></svg>
+        Profil LinkedIn
+      </a>
+    </div>
+    <div class="rv d2">
+      <div class="ab-ctx">
+        <p>Ce livre blanc est né d'un constat simple : <strong>YouTube est sous-exploité par les entreprises et les créateurs de contenus.</strong></p>
+        <p>Après des mois à tester, itérer et structurer des workflows, Turing Studio synthétise un équilibre entre <strong>automatisation et authenticité.</strong></p>
+        <p>Le résultat est une application interactive : un système pour produire plus <strong>sans renoncer à ce qui vous rend unique.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- FAQ -->
+<section class="sec">
+  <p class="stag rv">Questions fréquentes</p>
+  <div class="spacer" style="height:32px"></div>
+  <div class="faq-list rv d1">
+    <div class="fq"><div class="fq-q" onclick="toggleFaq(this)">Est-ce vraiment gratuit ?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a"><div class="fq-a-in">Oui, entièrement. L'application et le livre blanc sont 100% gratuits, sans abonnement ni carte bancaire. Le seul échange : votre email pour recevoir l'accès le 31 mai.</div></div></div>
+    <div class="fq"><div class="fq-q" onclick="toggleFaq(this)">Quand est-ce que je reçois l'accès ?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a"><div class="fq-a-in">Le 31 mai 2026, vous recevrez un email avec le lien direct vers l'application. Aucune installation requise, tout fonctionne dans votre navigateur.</div></div></div>
+    <div class="fq"><div class="fq-q" onclick="toggleFaq(this)">Faut-il être expert en IA pour utiliser la méthode ?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a"><div class="fq-a-in">Non. La méthode est construite pour être applicable quel que soit votre niveau. Chaque outil est expliqué avec son cas d'usage précis dans le pipeline. Si vous créez des vidéos YouTube, vous pouvez appliquer Turing Studio.</div></div></div>
+    <div class="fq"><div class="fq-q" onclick="toggleFaq(this)">Que contient exactement l'application ?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div><div class="fq-a"><div class="fq-a-in">7 chapitres actionnables couvrant l'intégralité du pipeline YouTube, une boîte à outils avec 32 outils évalués par phase, un calculateur ROI, et un Brand Voice Document builder pour encoder votre identité éditoriale.</div></div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta" id="cta">
+  <p class="stag rv">Accès anticipé · Gratuit</p>
+  <div class="spacer"></div>
+  <h2 class="cta-t rv d1">Disponible le 31 mai.<br><em>Soyez parmi les premiers.</em></h2>
+  <p class="cta-sub rv d2">Inscrivez-vous maintenant. Vous recevrez l'accès le matin du lancement.</p>
+  <div class="cta-col rv d3" id="cf">
+    <div class="cta-form">
+      <input class="fi" type="text" id="cn" placeholder="Votre prénom" aria-label="Prénom" autocomplete="given-name"/>
+      <input class="fi" type="email" id="ce" placeholder="votre@email.com" aria-label="Email" autocomplete="email"/>
+    </div>
+    <button class="bp bp-full" onclick="sub('cn','ce','cf','co')">Recevoir l'accès</button>
+  </div>
+  <div class="cta-ok" id="co"></div>
+  <p class="cta-note">100% gratuit · Données protégées</p>
+</div>
+
+<!-- RGPD -->
+<div class="rgpd">
+  <div class="rgpd-in">
+    <div class="rgpd-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="rgpd-tx"><strong>Vos données, votre contrôle (RGPD)</strong> · Seule votre adresse email est collectée pour vous envoyer l'accès le 31 mai. Elle ne sera jamais vendue ni transmise à des tiers. . Droit d'accès, rectification et suppression : <a href="mailto:bruno.vinet11@gmail.com">bruno.vinet11@gmail.com</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a class="logo" href="#">
+    <svg width="26" height="19" viewBox="0 0 30 22" fill="none">
+      <g opacity="0.28"><polygon points="11,3 11,19 25,11" fill="#E63946" stroke="#E63946" stroke-width="3.5" stroke-linejoin="round"/></g>
+      <polygon points="1,3 1,19 15,11" fill="#E63946" stroke="#E63946" stroke-width="3.5" stroke-linejoin="round"/>
+    </svg>
+    <div class="logo-tt"><span class="logo-T" style="font-size:16px">Turing</span><span class="logo-S" style="font-size:11px">Studio</span></div>
+  </a>
+  <div class="ft-r">
+    <span>© 2026 Turing Studio</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+(function(){
+'use strict';
+/* Mode clair uniquement */
+
+/* PROGRESS + NAV */
+var prog=document.getElementById('prog'),nav=document.getElementById('nav'),raf=false;
+window.addEventListener('scroll',function(){if(!raf){requestAnimationFrame(function(){
+  var p=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100||0;
+  prog.style.width=Math.min(p,100)+'%';
+  nav.classList.toggle('s',window.scrollY>40);
+  raf=false;
+});raf=true;}},{passive:true});
+
+/* COUNTDOWN */
+var tgt=new Date('2026-05-31T00:00:00+02:00').getTime();
+function p2(n){return String(Math.max(0,n)).padStart(2,'0')}
+var lastS=-1;
+function tick(){
+  var d=tgt-Date.now();
+  if(d<=0){
+    // Compteur arrivé à zéro — afficher "C'est disponible !"
+    var box=document.querySelector('.cd');
+    if(box&&!box.classList.contains('launched')){
+      box.classList.add('launched');
+      box.innerHTML='<div class="cd-launched">'
+        +'<div class="cd-launched-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E63946" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>'
+        +'<div class="cd-launched-title">C&#39;est disponible !</div>'
+        +'<div class="cd-launched-sub">Le livre blanc Turing Studio est en ligne.</div>'
+        +'<a class="cd-launched-btn" href="https://turing-studio.vercel.app/" target="_blank" rel="noopener noreferrer">Accéder maintenant →</a>'
+        +'</div>';
+      // Mettre à jour le CTA principal aussi
+      var ctaSub=document.querySelector('.cta-sub');
+      if(ctaSub)ctaSub.textContent="Le livre blanc est disponible. Accédez à l’application gratuitement.";
+      var ctaNote=document.querySelector('.cta-note');
+      if(ctaNote)ctaNote.textContent='100% gratuit · Accès immédiat';
+      var ctaBtn=document.querySelector('#cf .bp-full');
+      if(ctaBtn)ctaBtn.textContent='Accéder maintenant →';
+    }
+    return;
+  }
+  var days=Math.floor(d/864e5),hrs=Math.floor((d%864e5)/36e5),min=Math.floor((d%36e5)/6e4),sec=Math.floor((d%6e4)/1e3);
+  document.getElementById('cj').textContent=p2(days);
+  document.getElementById('ch').textContent=p2(hrs);
+  document.getElementById('cm').textContent=p2(min);
+  var se=document.getElementById('cs');
+  if(sec!==lastS){se.classList.add('f');setTimeout(function(){se.textContent=p2(sec);se.classList.remove('f');},120);}
+  lastS=sec;
+}
+tick();setInterval(tick,1000);
+
+/* HERO CANVAS ANIMATION */
+(function(){
+  var cv=document.getElementById('hero-canvas');
+  if(!cv)return;
+  var ctx=cv.getContext('2d');
+  var nodes=[],pulses=[],W,H,RAF2;
+
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  function dst(a,b){var dx=a.x-b.x,dy=a.y-b.y;return Math.sqrt(dx*dx+dy*dy);}
+
+  function resize(){
+    var hero=cv.closest('.hero')||cv.parentElement;
+    W=cv.width=hero.offsetWidth;H=cv.height=hero.offsetHeight;init();
+  }
+  function init(){
+    nodes=[];pulses=[];
+    var n=Math.max(24,Math.floor(W*H/20000));
+    for(var i=0;i<n;i++)nodes.push({x:rnd(0,W),y:rnd(0,H),vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.18,phase:rnd(0,Math.PI*2),r:rnd(1.2,2.6)});
+    for(var i=0;i<6;i++)sp();
+  }
+  function sp(){
+    if(nodes.length<2)return;
+    var a=Math.floor(Math.random()*nodes.length),b=Math.floor(Math.random()*nodes.length);
+    if(a===b)b=(a+1)%nodes.length;
+    pulses.push({a:a,b:b,t:0,spd:rnd(.007,.018)});
+  }
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    var reach=Math.min(W,H)*.26;
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];n.x+=n.vx;n.y+=n.vy;n.phase+=.01;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;}
+    // Edges
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var d=dst(nodes[i],nodes[j]);
+        if(d<reach){
+          var alpha=(1-d/reach)*.4;
+          ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle='rgba(201,169,97,'+alpha+')';ctx.lineWidth=.55;ctx.stroke();
+        }
+      }
+    }
+    // Nodes
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];var p2v=.4+.6*Math.abs(Math.sin(n.phase));ctx.beginPath();ctx.arc(n.x,n.y,n.r*p2v,0,Math.PI*2);ctx.fillStyle='rgba(230,57,70,'+(p2v*.75)+')';ctx.fill();}
+    // Pulses
+    for(var i=pulses.length-1;i>=0;i--){
+      var pu=pulses[i];
+      if(pu.a>=nodes.length||pu.b>=nodes.length){pulses.splice(i,1);sp();continue;}
+      var na=nodes[pu.a],nb=nodes[pu.b];
+      if(dst(na,nb)>reach*1.3){pulses.splice(i,1);sp();continue;}
+      var px=na.x+(nb.x-na.x)*pu.t,py=na.y+(nb.y-na.y)*pu.t;
+      var fade=Math.sin(pu.t*Math.PI);
+      ctx.beginPath();ctx.arc(px,py,3*fade+.5,0,Math.PI*2);ctx.fillStyle='rgba(27,27,35,'+(fade*.6)+')';ctx.fill();
+      ctx.beginPath();ctx.arc(px,py,7*fade,0,Math.PI*2);ctx.fillStyle='rgba(230,57,70,'+(fade*.2)+')';ctx.fill();
+      pu.t+=pu.spd;if(pu.t>=1){pulses.splice(i,1);sp();}
+    }
+    while(pulses.length<6)sp();
+    RAF2=requestAnimationFrame(frame);
+  }
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)cancelAnimationFrame(RAF2);else frame();});
+  frame();
+})();
+
+/* PARALLAX */
+var hL=document.querySelector('.hero-l'),hR=document.querySelector('.hero-r'),praf2=false;
+window.addEventListener('scroll',function(){if(!praf2&&window.innerWidth>1060){requestAnimationFrame(function(){var y=window.scrollY;if(hL)hL.style.transform='translateY('+y*.06+'px)';if(hR)hR.style.transform='translateY('+y*.09+'px)';praf2=false;});praf2=true;}},{passive:true});
+
+/* REVEAL */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -16px 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+/* COUNT-UP */
+var counted=false,statEls=document.querySelectorAll('[data-to]');
+function countUp(el,to,dur){var st=null;function s(ts){if(!st)st=ts;var p=Math.min((ts-st)/dur,1);el.textContent=Math.round((1-Math.pow(1-p,3))*to);if(p<1)requestAnimationFrame(s);}requestAnimationFrame(s);}
+var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!counted){counted=true;statEls.forEach(function(el){countUp(el,parseInt(el.dataset.to),1100);});}});},{threshold:.4});
+statEls.forEach(function(el){cio.observe(el);});
+
+/* FORM */
+/* ⚠️  Remplacez cette URL par celle de votre Google Apps Script déployé */
+var APPS_SCRIPT_URL = 'VOTRE_URL_ICI';
+
+window.sub=function(nId,eId,fId,oId){
+  var nameInp=document.getElementById(nId),emailInp=document.getElementById(eId);
+  var name=(nameInp.value||'').trim(), email=(emailInp.value||'').trim();
+
+  // Validation prénom
+  if(!name){
+    nameInp.classList.add('err');nameInp.focus();
+    setTimeout(function(){nameInp.classList.remove('err');},1800);return;
+  }
+  // Validation email
+  if(!email||!email.includes('@')||!email.includes('.')){
+    emailInp.classList.add('err');emailInp.focus();
+    setTimeout(function(){emailInp.classList.remove('err');},1800);return;
+  }
+
+  // Désactiver le bouton
+  var btn=document.querySelector('#'+fId+' .bp-full');
+  if(btn){btn.disabled=true;btn.textContent='Envoi...';}
+
+  // Envoi vers Google Apps Script
+  var url=APPS_SCRIPT_URL+'?name='+encodeURIComponent(name)+'&email='+encodeURIComponent(email);
+
+  fetch(url,{method:'GET',mode:'no-cors'})
+    .then(function(){
+      document.getElementById(fId).style.display='none';
+      var okEl=document.getElementById(oId);
+      okEl.textContent='Merci '+name+' ! Vous recevrez un email de confirmation dans quelques minutes.';
+      okEl.style.display='block';
+    })
+    .catch(function(){
+      // Meme en cas d'erreur reseau, on considere OK (no-cors)
+      document.getElementById(fId).style.display='none';
+      var okEl=document.getElementById(oId);
+      okEl.textContent='Merci '+name+' ! Vous recevrez un email de confirmation dans quelques minutes.';
+      okEl.style.display='block';
+    });
+};
+
+/* NAVIGATION */
+window.goTo=function(id){var el=document.getElementById(id);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){var i=el.querySelector('input[type="email"]');if(i)i.focus();},600);};
+
+/* FAQ */
+window.toggleFaq=function(btn){var fq=btn.closest('.fq');document.querySelectorAll('.fq.open').forEach(function(el){if(el!==fq)el.classList.remove('open');});fq.classList.toggle('open');};
+
+/* INSTAGRAM */
+window.shareIG=function(){
+  var url='https://turing-studio.vercel.app/';
+  var txt='La méthode IA pour créateurs YouTube — disponible le 31 mai. '+url;
+  // Essayer Web Share API (mobile natif)
+  if(navigator.share){
+    navigator.share({title:'Turing Studio',text:txt,url:url}).catch(function(){});
+    return;
+  }
+  // Desktop : ouvrir Instagram puis copier le lien
+  window.open('https://www.instagram.com/','_blank','noopener');
+  navigator.clipboard.writeText(url).then(function(){
+    var fb=document.getElementById('cpok');
+    fb.textContent='Lien copié ! Collez-le dans votre story ou bio Instagram.';
+    fb.classList.add('v');
+    setTimeout(function(){fb.classList.remove('v');},4000);
+  }).catch(function(){
+    var fb=document.getElementById('cpok');
+    fb.textContent='Copiez ce lien : '+url;
+    fb.classList.add('v');
+    setTimeout(function(){fb.classList.remove('v');},5000);
+  });
+};
+})();
+
+})();
+</script>
+</body>
+</html>
